@@ -56,7 +56,95 @@ sudo -u postgres psql -c "CREATE DATABASE $DB_NAME OWNER $DB_USER;"
 sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE $DB_NAME TO $DB_USER;"
 sudo -u postgres psql -d $DB_NAME -c "GRANT ALL ON SCHEMA public TO $DB_USER;"
 sudo -u postgres psql -d $DB_NAME -c "ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO $DB_USER;"
-echo "DB_PASS=$DB_PASS"
+
+# Fix pg_hba.conf - allow password auth for local connections
+PG_HBA=$(sudo -u postgres psql -t -c "SHOW hba_file;" | tr -d ' ')
+echo "[5b/11] Configuring PostgreSQL auth..."
+sudo sed -i 's/local\s\+all\s\+all\s\+peer/local   all             all                                     md5/' "$PG_HBA" 2>/dev/null || true
+sudo sed -i 's/host\s\+all\s\+all\s\+127.0.0.1\/32\s\+scram-sha-256/host    all             all             127.0.0.1\/32            md5/' "$PG_HBA" 2>/dev/null || true
+sudo sed -i 's/host\s\+all\s\+all\s\+::1\/128\s\+scram-sha-256/host    all             all             ::1\/128                 md5/' "$PG_HBA" 2>/dev/null || true
+sudo systemctl restart postgresql
+
+# Init schema via psql (bypass Node.js pg driver)
+echo "[5c/11] Initializing database schema..."
+sudo -u postgres psql -d $DB_NAME <<'SQL'
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+
+CREATE TABLE IF NOT EXISTS users (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    full_name VARCHAR(100) DEFAULT '',
+    role VARCHAR(20) NOT NULL DEFAULT 'operator'
+        CHECK (role IN ('admin', 'operator', 'viewer')),
+    is_active BOOLEAN DEFAULT true,
+    last_login TIMESTAMPTZ,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS devices (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID REFERENCES users(id) ON DELETE SET NULL,
+    name VARCHAR(100) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    location VARCHAR(200) NOT NULL,
+    card_type VARCHAR(20) DEFAULT ''
+        CHECK (card_type IN ('', 'Prabayar', 'Pascabayar', 'IoT')),
+    operator VARCHAR(20) DEFAULT ''
+        CHECK (operator IN ('', 'Telkomsel', 'Byu', 'Indosat', 'Tri', 'XL', 'Axis')),
+    package_amount_mb INTEGER DEFAULT 0,
+    package_start_date DATE,
+    package_duration_days INTEGER DEFAULT 0,
+    package_cost NUMERIC(12,2) DEFAULT 0,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS device_history (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    device_id UUID REFERENCES devices(id) ON DELETE CASCADE,
+    user_id UUID REFERENCES users(id) ON DELETE SET NULL,
+    action VARCHAR(20) NOT NULL
+        CHECK (action IN ('add', 'update', 'package_update', 'delete')),
+    device_name VARCHAR(100),
+    phone VARCHAR(20),
+    location VARCHAR(200),
+    details JSONB,
+    timestamp TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_devices_user_id ON devices(user_id);
+CREATE INDEX IF NOT EXISTS idx_devices_phone ON devices(phone);
+CREATE INDEX IF NOT EXISTS idx_devices_name ON devices(name);
+CREATE INDEX IF NOT EXISTS idx_history_device_id ON device_history(device_id);
+CREATE INDEX IF NOT EXISTS idx_history_timestamp ON device_history(timestamp DESC);
+CREATE INDEX IF NOT EXISTS idx_history_user_id ON device_history(user_id);
+
+CREATE OR REPLACE FUNCTION update_updated_at()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = NOW();
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_trigger WHERE tgname = 'trg_devices_updated_at') THEN
+        CREATE TRIGGER trg_devices_updated_at
+            BEFORE UPDATE ON devices
+            FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_trigger WHERE tgname = 'trg_users_updated_at') THEN
+        CREATE TRIGGER trg_users_updated_at
+            BEFORE UPDATE ON users
+            FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+    END IF;
+END;
+$$;
+SQL
+echo "Schema initialized."
 
 # 6. Clone repo
 echo "[6/11] Cloning repository..."
@@ -90,11 +178,8 @@ cd $APP_DIR
 sudo npm install
 sudo npm run build
 
-# 10. Initialize database schema
-echo "[10/11] Initializing database..."
-cd $APP_DIR/backend
-export DATABASE_URL="postgresql://$DB_USER:$DB_PASS@localhost:5432/$DB_NAME"
-node src/config/init.js
+# 10. Skip - schema already initialized via psql
+echo "[10/11] Schema already initialized via psql."
 
 # 11. Setup systemd & nginx
 echo "[11/11] Configuring services..."
