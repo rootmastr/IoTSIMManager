@@ -93,7 +93,8 @@ sudo npm run build
 # 10. Initialize database schema
 echo "[10/11] Initializing database..."
 cd $APP_DIR/backend
-sudo node src/config/init.js
+export DATABASE_URL="postgresql://$DB_USER:$DB_PASS@localhost:5432/$DB_NAME"
+node src/config/init.js
 
 # 11. Setup systemd & nginx
 echo "[11/11] Configuring services..."
