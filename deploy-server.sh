@@ -74,7 +74,7 @@ sudo tee $APP_DIR/backend/.env > /dev/null <<EOF
 DATABASE_URL=postgresql://$DB_USER:$DB_PASS@localhost:5432/$DB_NAME
 JWT_SECRET=$JWT_SECRET
 JWT_EXPIRES_IN=7d
-PORT=3000
+PORT=3232
 NODE_ENV=production
 FRONTEND_URL=http://$SERVER_IP:$APP_PORT
 EOF
@@ -136,7 +136,7 @@ server {
     }
 
     location /api {
-        proxy_pass http://127.0.0.1:3000;
+        proxy_pass http://127.0.0.1:3232;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection 'upgrade';
