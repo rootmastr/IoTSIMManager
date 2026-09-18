@@ -11,8 +11,8 @@ APP_NAME="iotsimmanager"
 APP_DIR="/opt/$APP_NAME"
 DB_NAME="iotsimdb"
 DB_USER="iotsim"
-DB_PASS=$(openssl rand -base64 24)
-JWT_SECRET=$(openssl rand -base64 32)
+DB_PASS=$(openssl rand -base64 24 | tr -d '/+=')
+JWT_SECRET=$(openssl rand -base64 32 | tr -d '/+=')
 NODE_VERSION="22"
 APP_PORT=8282
 SERVER_IP="111.68.31.232"
