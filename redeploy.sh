@@ -25,5 +25,5 @@ echo "[4/4] Restarting service..."
 sudo systemctl restart iotsimmanager
 
 echo ""
-echo "Redeploy selesai! Service sudah restart."
-echo "URL: http://$(hostname -I | awk '{print $1}')"
+echo "Redeploy selesai!"
+echo "URL: http://111.68.31.232:8282"

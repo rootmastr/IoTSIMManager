@@ -1,7 +1,7 @@
 #!/bin/bash
 # ============================================
 # IoT SIM Manager - Server Deployment via Git
-# Jalankan di Ubuntu Server untuk deploy awal
+# IP: 111.68.31.232 Port: 8282
 # ============================================
 
 set -e
@@ -14,9 +14,12 @@ DB_USER="iotsim"
 DB_PASS=$(openssl rand -base64 24)
 JWT_SECRET=$(openssl rand -base64 32)
 NODE_VERSION="22"
+APP_PORT=8282
+SERVER_IP="111.68.31.232"
 
 echo "========================================="
-echo "  IoT SIM Manager - Git Deploy Script"
+echo "  IoT SIM Manager - Deploy Script"
+echo "  Server: $SERVER_IP:$APP_PORT"
 echo "========================================="
 
 # 1. System update
@@ -69,7 +72,7 @@ JWT_SECRET=$JWT_SECRET
 JWT_EXPIRES_IN=7d
 PORT=3000
 NODE_ENV=production
-FRONTEND_URL=http://$(hostname -I | awk '{print $1}')
+FRONTEND_URL=http://$SERVER_IP:$APP_PORT
 EOF
 
 # 8. Install backend dependencies
@@ -115,29 +118,29 @@ sudo systemctl daemon-reload
 sudo systemctl enable $APP_NAME
 sudo systemctl restart $APP_NAME
 
-# Nginx config
-sudo tee /etc/nginx/sites-available/$APP_NAME > /dev/null <<'NGINX'
+# Nginx config - port 8282
+sudo tee /etc/nginx/sites-available/$APP_NAME > /dev/null <<NGINX
 server {
-    listen 80;
-    server_name _;
+    listen $APP_PORT;
+    server_name $SERVER_IP _;
 
     client_max_body_size 10M;
 
     location / {
         root /var/www/iotsimmanager/dist;
-        try_files $uri $uri/ /index.html;
+        try_files \$uri \$uri/ /index.html;
     }
 
     location /api {
         proxy_pass http://127.0.0.1:3000;
         proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_cache_bypass $http_upgrade;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+        proxy_cache_bypass \$http_upgrade;
     }
 }
 NGINX
@@ -146,27 +149,27 @@ sudo ln -sf /etc/nginx/sites-available/$APP_NAME /etc/nginx/sites-enabled/
 sudo rm -f /etc/nginx/sites-enabled/default
 sudo nginx -t && sudo systemctl reload nginx
 
-SERVER_IP=$(hostname -I | awk '{print $1}')
-
 echo ""
 echo "========================================="
 echo "  Deploy Berhasil!"
 echo "========================================="
 echo ""
-echo "  URL:         http://$SERVER_IP"
+echo "  URL:         http://$SERVER_IP:$APP_PORT"
 echo "  Database:    $DB_NAME"
 echo "  DB User:     $DB_USER"
 echo "  DB Password: $DB_PASS"
 echo "  App Dir:     $APP_DIR"
 echo ""
+echo "  Login:       http://$SERVER_IP:$APP_PORT/login"
+echo ""
 echo "  Buat admin pertama:"
-echo "  curl -X POST http://$SERVER_IP/api/auth/register \\"
+echo "  curl -X POST http://$SERVER_IP:$APP_PORT/api/auth/register \\"
 echo "    -H 'Content-Type: application/json' \\"
 echo "    -d '{\"username\":\"admin\",\"password\":\"admin123\",\"full_name\":\"Administrator\",\"role\":\"admin\"}'"
 echo ""
 echo "  Service:     sudo systemctl status $APP_NAME"
 echo "  Logs:        sudo journalctl -u $APP_NAME -f"
-echo "  Redeploy:    cd $APP_DIR && sudo bash deploy-server.sh"
+echo "  Redeploy:    cd $APP_DIR && sudo bash redeploy.sh"
 echo ""
-echo "  Simpan password ini: $DB_PASS"
+echo "  *** SIMPAN PASSWORD INI: $DB_PASS ***"
 echo ""

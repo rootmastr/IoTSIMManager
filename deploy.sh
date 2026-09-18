@@ -63,7 +63,7 @@ JWT_SECRET=$JWT_SECRET
 JWT_EXPIRES_IN=7d
 PORT=3000
 NODE_ENV=production
-FRONTEND_URL=http://localhost
+FRONTEND_URL=http://111.68.31.232:8282
 EOF
 
 # 8. Install dependencies & init DB
@@ -97,17 +97,17 @@ sudo systemctl daemon-reload
 sudo systemctl enable $APP_NAME
 sudo systemctl restart $APP_NAME
 
-# 10. Configure Nginx
+# 10. Configure Nginx (port 8282)
 echo "[10/10] Configuring Nginx..."
 sudo tee /etc/nginx/sites-available/$APP_NAME > /dev/null <<'NGINX'
 server {
-    listen 80;
-    server_name _;
+    listen 8282;
+    server_name 111.68.31.232 _;
 
     client_max_body_size 10M;
 
     location / {
-        root /var/www/iotsimmanager/frontend;
+        root /var/www/iotsimmanager/dist;
         try_files $uri $uri/ /index.html;
     }
 
@@ -134,14 +134,14 @@ echo "========================================="
 echo "  Deployment Complete!"
 echo "========================================="
 echo ""
-echo "  App URL:    http://$(hostname -I | awk '{print $1}')"
+echo "  App URL:    http://111.68.31.232:8282"
 echo "  DB Name:    $DB_NAME"
 echo "  DB User:    $DB_USER"
 echo "  DB Pass:    $DB_PASS"
 echo "  App Dir:    $APP_DIR"
 echo ""
 echo "  Create admin account:"
-echo "  curl -X POST http://localhost/api/auth/register \\"
+echo "  curl -X POST http://111.68.31.232:8282/api/auth/register \\"
 echo "    -H 'Content-Type: application/json' \\"
 echo "    -d '{\"username\":\"admin\",\"password\":\"your_password\",\"full_name\":\"Administrator\",\"role\":\"admin\"}'"
 echo ""
