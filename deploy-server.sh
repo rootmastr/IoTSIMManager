@@ -8,7 +8,7 @@ set -e
 
 REPO_URL="https://github.com/rootmastr/IoTSIMManager.git"
 APP_NAME="iotsimmanager"
-APP_DIR="/var/www/$APP_NAME"
+APP_DIR="/opt/$APP_NAME"
 DB_NAME="iotsimdb"
 DB_USER="iotsim"
 DB_PASS=$(openssl rand -base64 24)
@@ -127,7 +127,7 @@ server {
     client_max_body_size 10M;
 
     location / {
-        root /var/www/iotsimmanager/dist;
+        root /opt/iotsimmanager/dist;
         try_files \$uri \$uri/ /index.html;
     }
 
