@@ -195,7 +195,7 @@ Wants=postgresql.service
 Type=simple
 User=www-data
 WorkingDirectory=$APP_DIR/backend
-ExecStart=/usr/bin/node src/server.js
+ExecStart=/usr/local/bin/node src/server.js
 Restart=always
 RestartSec=5
 Environment=NODE_ENV=production
