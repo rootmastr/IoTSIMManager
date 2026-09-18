@@ -1,0 +1,77 @@
+.notifikasi-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+
+.notifikasi-title {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--gray-900);
+}
+
+.notifikasi-count {
+  font-size: var(--font-sm);
+  color: var(--gray-400);
+}
+
+.notifikasi-empty .card-body {
+  padding: var(--space-12) var(--space-4);
+}
+
+.notifikasi-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.notifikasi-item .card-body {
+  padding: var(--space-3) var(--space-4);
+}
+
+.notifikasi-item-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.notifikasi-item-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.notifikasi-item-icon.info {
+  background: var(--green-100);
+  color: var(--green-600);
+}
+
+.notifikasi-item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.notifikasi-item-message {
+  font-size: var(--font-sm);
+  color: var(--gray-800);
+}
+
+.notifikasi-item-meta {
+  font-size: var(--font-xs);
+  color: var(--gray-400);
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.notifikasi-item-time {
+  font-size: var(--font-xs);
+  color: var(--gray-400);
+  margin-top: 2px;
+}

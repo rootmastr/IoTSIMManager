@@ -1,0 +1,325 @@
+.paket-data-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+
+.paket-data-title {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--gray-900);
+}
+
+.paket-data-count {
+  font-size: var(--font-sm);
+  color: var(--gray-400);
+}
+
+.paket-data-empty .card-body {
+  padding: var(--space-12) var(--space-4);
+}
+
+.empty-state-inline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--gray-400);
+  text-align: center;
+}
+
+.paket-device-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.paket-device-card .card-body {
+  padding: var(--space-4) var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.paket-device-card.saved {
+  border-color: var(--green-400);
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.15);
+}
+
+.paket-device-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.paket-device-name {
+  font-weight: 600;
+  color: var(--gray-900);
+  font-size: var(--font-md);
+}
+
+.paket-device-phone {
+  font-size: var(--font-sm);
+  color: var(--gray-500);
+  margin-top: 2px;
+}
+
+.paket-device-tags {
+  display: flex;
+  gap: var(--space-1);
+  margin-top: var(--space-1);
+}
+
+.paket-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 8px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-xs);
+  font-weight: 600;
+}
+
+.paket-tag.operator {
+  background: var(--blue-50);
+  color: var(--blue-700);
+}
+
+.paket-tag.cardtype {
+  background: var(--green-50);
+  color: var(--green-700);
+}
+
+.paket-device-status-area {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-shrink: 0;
+}
+
+.paket-device-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-xs);
+  font-weight: 600;
+}
+
+.paket-device-badge.green {
+  background: var(--green-100);
+  color: var(--green-700);
+}
+
+.paket-device-badge.amber {
+  background: var(--amber-100);
+  color: var(--amber-700);
+}
+
+.paket-device-badge.red {
+  background: var(--red-100);
+  color: var(--red-700);
+}
+
+.paket-device-badge.gray {
+  background: var(--gray-100);
+  color: var(--gray-600);
+}
+
+.paket-device-days {
+  font-size: var(--font-sm);
+  font-weight: 600;
+}
+
+.paket-device-days.green {
+  color: var(--green-600);
+}
+
+.paket-device-days.amber {
+  color: var(--amber-600);
+}
+
+.paket-device-days.red {
+  color: var(--red-600);
+}
+
+.paket-device-days.gray {
+  color: var(--gray-500);
+}
+
+.paket-device-summary {
+  display: flex;
+  gap: var(--space-6);
+}
+
+.paket-device-stat {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-sm);
+  color: var(--gray-600);
+}
+
+.paket-device-stat svg {
+  color: var(--gray-400);
+  flex-shrink: 0;
+}
+
+.paket-device-stat.cost {
+  font-weight: 700;
+  color: var(--green-700);
+  background: var(--green-50);
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+}
+
+.paket-device-stat.iot-monthly {
+  font-weight: 600;
+  color: var(--blue-700);
+  background: var(--blue-50);
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+}
+
+.paket-device-expiry {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-sm);
+  color: var(--gray-600);
+  padding: var(--space-2) var(--space-3);
+  background: var(--gray-50);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--gray-100);
+}
+
+.paket-device-expiry svg {
+  color: var(--gray-400);
+  flex-shrink: 0;
+}
+
+.paket-device-expiry.urgent {
+  background: var(--red-50);
+  border-color: var(--red-200);
+  color: var(--red-700);
+}
+
+.paket-device-expiry.urgent svg {
+  color: var(--red-400);
+}
+
+.paket-device-expiry strong {
+  font-weight: 600;
+  color: var(--gray-900);
+}
+
+.paket-device-expiry.urgent strong {
+  color: var(--red-800);
+}
+
+.paket-expiry-remaining {
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.paket-device-recommendation {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  font-size: var(--font-sm);
+  line-height: 1.5;
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+}
+
+.paket-device-recommendation svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.paket-device-recommendation.success {
+  background: var(--green-50);
+  color: var(--green-700);
+}
+
+.paket-device-recommendation.info {
+  background: var(--blue-50);
+  color: var(--blue-700);
+}
+
+.paket-device-recommendation.warning {
+  background: var(--amber-50);
+  color: var(--amber-700);
+}
+
+.paket-device-recommendation.danger {
+  background: var(--red-50);
+  color: var(--red-700);
+}
+
+.paket-device-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--gray-100);
+}
+
+.paket-device-actions-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.paket-device-edit-form {
+  padding-top: var(--space-3);
+  border-top: 1px dashed var(--gray-200);
+}
+
+.paket-device-edit-form .form-row-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.paket-device-detail {
+  padding-top: var(--space-3);
+  border-top: 1px dashed var(--gray-200);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.paket-detail-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--font-sm);
+}
+
+.paket-detail-label {
+  color: var(--gray-500);
+}
+
+.paket-detail-value {
+  color: var(--gray-800);
+  font-weight: 500;
+}
+
+@media (max-width: 640px) {
+  .paket-device-top {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .paket-device-summary {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .paket-device-edit-form .form-row-3 {
+    grid-template-columns: 1fr;
+  }
+}

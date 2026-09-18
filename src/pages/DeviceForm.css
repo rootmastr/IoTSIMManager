@@ -1,0 +1,71 @@
+.device-form-page {
+  max-width: 640px;
+}
+
+.back-btn {
+  margin-bottom: var(--space-4);
+}
+
+.device-form-card .card-header h2 {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--gray-900);
+}
+
+.device-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.form-section-label {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--gray-700);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-bottom: var(--space-1);
+}
+
+.form-section-divider {
+  border: none;
+  border-top: 1px dashed var(--gray-200);
+  margin: var(--space-2) 0;
+}
+
+.form-row-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.form-hint {
+  font-size: var(--font-xs);
+  color: var(--gray-400);
+}
+
+.form-input.error {
+  border-color: var(--red-400);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.form-error {
+  font-size: var(--font-xs);
+  color: var(--red-500);
+  margin-top: 2px;
+}
+
+.device-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--gray-100);
+}
+
+@media (max-width: 640px) {
+  .form-row-3 {
+    grid-template-columns: 1fr;
+  }
+}

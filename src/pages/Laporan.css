@@ -1,0 +1,643 @@
+/* ============================================
+   Laporan — Professional Report Styles
+   ============================================ */
+
+/* --- Controls Bar --- */
+.laporan-page-title {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--gray-900);
+}
+
+.laporan-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.laporan-controls-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.laporan-type-selector {
+  display: flex;
+  gap: 2px;
+  background: var(--bg-card);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 3px;
+}
+
+.laporan-type-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  font-size: var(--font-sm);
+  font-weight: 500;
+  color: var(--gray-500);
+  transition: all var(--transition-fast);
+}
+
+.laporan-type-btn:hover {
+  color: var(--gray-700);
+  background: var(--gray-50);
+}
+
+.laporan-type-btn.active {
+  background: var(--blue-500);
+  color: white;
+  box-shadow: 0 1px 3px rgba(59, 130, 246, 0.3);
+}
+
+.laporan-time-selector {
+  display: flex;
+  gap: 2px;
+  background: var(--bg-card);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 3px;
+}
+
+.laporan-time-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  font-size: var(--font-sm);
+  font-weight: 500;
+  color: var(--gray-500);
+  transition: all var(--transition-fast);
+}
+
+.laporan-time-btn:hover {
+  color: var(--gray-700);
+  background: var(--gray-50);
+}
+
+.laporan-time-btn.active {
+  background: var(--green-500);
+  color: white;
+  box-shadow: 0 1px 3px rgba(16, 185, 129, 0.3);
+}
+
+.report-range-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  background: var(--green-50);
+  border: 1px solid var(--green-200);
+  border-radius: var(--radius-full);
+  font-size: var(--font-xs);
+  font-weight: 600;
+  color: var(--green-700);
+  margin-bottom: 4px;
+}
+
+.laporan-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+/* --- Report Paper --- */
+.report-paper {
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--gray-200);
+  padding: var(--space-6) var(--space-8);
+  width: 100%;
+}
+
+/* --- Report Header --- */
+.report-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--space-4);
+  border-bottom: 2px solid var(--gray-900);
+  margin-bottom: var(--space-5);
+}
+
+.report-header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.report-logo {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, var(--blue-600), var(--blue-400));
+  color: white;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-md);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+}
+
+.report-company {
+  font-size: var(--font-xl);
+  font-weight: 800;
+  color: var(--gray-900);
+  line-height: 1.2;
+}
+
+.report-tagline {
+  font-size: var(--font-xs);
+  color: var(--gray-500);
+}
+
+.report-header-right {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.report-date {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--gray-800);
+}
+
+.report-time {
+  font-size: var(--font-xs);
+  color: var(--gray-500);
+}
+
+/* --- Report Title --- */
+.report-title-section {
+  margin-bottom: var(--space-5);
+}
+
+.report-main-title {
+  font-size: var(--font-xl);
+  font-weight: 800;
+  color: var(--gray-900);
+  margin-bottom: var(--space-1);
+}
+
+.report-subtitle {
+  font-size: var(--font-sm);
+  color: var(--gray-500);
+  margin-bottom: var(--space-3);
+}
+
+.report-title-line {
+  height: 3px;
+  background: linear-gradient(90deg, var(--blue-500), transparent);
+  border-radius: 2px;
+  width: 60px;
+}
+
+/* --- Stats Row --- */
+.report-stats-row {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+  flex-wrap: wrap;
+}
+
+.report-stat-box {
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--gray-200);
+  text-align: center;
+  flex: 1;
+  min-width: 120px;
+}
+
+.report-stat-box.blue {
+  background: var(--blue-50);
+  border-color: var(--blue-200);
+}
+
+.report-stat-box.green {
+  background: var(--green-50);
+  border-color: var(--green-200);
+}
+
+.report-stat-box.amber {
+  background: var(--amber-50);
+  border-color: var(--amber-200);
+}
+
+.report-stat-box.red {
+  background: var(--red-50);
+  border-color: var(--red-200);
+}
+
+.report-stat-box.gray {
+  background: var(--gray-50);
+  border-color: var(--gray-200);
+}
+
+.report-stat-value {
+  font-size: var(--font-lg);
+  font-weight: 800;
+  color: var(--gray-900);
+  line-height: 1.2;
+}
+
+.report-stat-label {
+  font-size: var(--font-xs);
+  color: var(--gray-500);
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+/* --- Alert Box --- */
+.report-alert {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: var(--amber-50);
+  border: 1px solid var(--amber-200);
+  border-radius: var(--radius-md);
+  color: var(--amber-700);
+  font-size: var(--font-sm);
+  font-weight: 500;
+  margin-bottom: var(--space-5);
+}
+
+/* --- Report Table --- */
+.report-table-wrapper {
+  overflow-x: auto;
+  margin-bottom: var(--space-5);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+}
+
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-sm);
+  white-space: nowrap;
+}
+
+.report-table thead th {
+  background: var(--gray-900);
+  color: white;
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.report-table tbody td {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--gray-100);
+  color: var(--gray-700);
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.report-table tbody tr:hover {
+  background: var(--gray-50);
+}
+
+.report-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.report-table tfoot td {
+  padding: 10px 14px;
+  border-top: 2px solid var(--gray-300);
+  background: var(--gray-50);
+  font-weight: 600;
+  color: var(--gray-900);
+}
+
+.th-num,
+.td-num {
+  width: 40px;
+  text-align: center;
+}
+
+.th-right,
+.td-right {
+  text-align: right;
+}
+
+.td-bold {
+  font-weight: 600;
+  color: var(--gray-900);
+}
+
+.td-danger {
+  color: var(--red-600);
+  font-weight: 600;
+}
+
+.row-highlight {
+  background: var(--red-50);
+}
+
+.row-highlight:hover {
+  background: var(--red-100);
+}
+
+/* --- Cost Badges --- */
+.cost-iot-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-xs);
+  font-weight: 600;
+  background: var(--blue-50);
+  color: var(--blue-700);
+}
+
+.cost-standard-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-xs);
+  font-weight: 600;
+  background: var(--gray-50);
+  color: var(--gray-600);
+}
+
+/* --- Status Badge --- */
+.report-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-xs);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.report-status.status-safe {
+  background: var(--green-100);
+  color: var(--green-700);
+}
+
+.report-status.status-warning {
+  background: var(--amber-100);
+  color: var(--amber-700);
+}
+
+.report-status.status-critical {
+  background: var(--red-100);
+  color: var(--red-700);
+}
+
+.report-status.status-expired {
+  background: var(--red-100);
+  color: var(--red-700);
+}
+
+.report-status.status-none {
+  background: var(--gray-100);
+  color: var(--gray-600);
+}
+
+/* --- Empty Note --- */
+.report-empty-note {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background: var(--gray-50);
+  border: 1px dashed var(--gray-300);
+  border-radius: var(--radius-md);
+  color: var(--gray-500);
+  font-size: var(--font-sm);
+  text-align: center;
+  justify-content: center;
+}
+
+/* --- Report Footer --- */
+.report-footer {
+  margin-top: var(--space-6);
+}
+
+.report-footer-line {
+  height: 1px;
+  background: var(--gray-300);
+  margin-bottom: var(--space-3);
+}
+
+.report-footer-content {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-xs);
+  color: var(--gray-400);
+}
+
+/* ============================================
+   Print Styles
+   ============================================ */
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  body {
+    background: white !important;
+    margin: 0;
+    padding: 0;
+  }
+
+  .no-print,
+  .sidebar,
+  .sidebar-overlay,
+  .header {
+    display: none !important;
+  }
+
+  .app-layout {
+    display: block !important;
+  }
+
+  .app-main {
+    margin-left: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  .app-content {
+    padding: 0 !important;
+    max-width: none !important;
+  }
+
+  .laporan-page {
+    padding: 0 !important;
+  }
+
+  .report-paper {
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 10mm !important;
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .report-table-wrapper {
+    overflow: visible !important;
+    border: none !important;
+    border-radius: 0 !important;
+  }
+
+  .report-table {
+    white-space: normal !important;
+    font-size: 0.75rem;
+  }
+
+  .report-table thead th {
+    background: var(--gray-900) !important;
+    color: white !important;
+    padding: 6px 8px !important;
+  }
+
+  .report-table tbody td {
+    padding: 5px 8px !important;
+  }
+
+  .report-stat-box.blue {
+    background: #eff6ff !important;
+  }
+
+  .report-stat-box.green {
+    background: #ecfdf5 !important;
+  }
+
+  .report-stat-box.amber {
+    background: #fffbeb !important;
+  }
+
+  .report-stat-box.red {
+    background: #fef2f2 !important;
+  }
+
+  .report-status.status-safe {
+    background: #d1fae5 !important;
+    color: #047857 !important;
+  }
+
+  .report-status.status-warning {
+    background: #fef3c7 !important;
+    color: #b45309 !important;
+  }
+
+  .report-status.status-critical,
+  .report-status.status-expired {
+    background: #fee2e2 !important;
+    color: #b91c1c !important;
+  }
+
+  .report-status.status-none {
+    background: #f3f4f6 !important;
+    color: #4b5563 !important;
+  }
+
+  .report-range-badge {
+    background: #ecfdf5 !important;
+    color: #047857 !important;
+    border-color: #a7f3d0 !important;
+  }
+
+  .cost-iot-badge {
+    background: #eff6ff !important;
+    color: #1d4ed8 !important;
+  }
+
+  .cost-standard-badge {
+    background: #f3f4f6 !important;
+    color: #4b5563 !important;
+  }
+
+  .row-highlight {
+    background: #fef2f2 !important;
+  }
+
+  .report-table tbody tr:nth-child(even) {
+    background: var(--gray-50) !important;
+  }
+
+  @page {
+    margin: 8mm;
+    size: A4 landscape;
+  }
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .report-paper {
+    padding: var(--space-4);
+  }
+
+  .report-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .report-header-right {
+    text-align: left;
+  }
+
+  .laporan-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .laporan-controls-right {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .laporan-type-selector {
+    flex-wrap: wrap;
+  }
+
+  .laporan-time-selector {
+    flex-wrap: wrap;
+  }
+
+  .report-stats-row {
+    flex-direction: column;
+  }
+
+  .report-stat-box {
+    min-width: auto;
+  }
+
+  .report-table {
+    font-size: var(--font-xs);
+  }
+
+  .report-table thead th,
+  .report-table tbody td {
+    padding: 6px 10px;
+  }
+
+  .report-footer-content {
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+}
