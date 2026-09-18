@@ -1,7 +1,7 @@
 import pg from 'pg';
 import dotenv from 'dotenv';
 
-dotenv.config({ path: '../.env' });
+dotenv.config({ path: new URL('../../.env', import.meta.url).pathname });
 
 const pool = new pg.Pool({
   connectionString: process.env.DATABASE_URL,

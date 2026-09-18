@@ -8,7 +8,7 @@ import deviceRoutes from './routes/devices.js';
 import historyRoutes from './routes/history.js';
 import { errorHandler } from './middleware/errorHandler.js';
 
-dotenv.config({ path: '../.env' });
+dotenv.config({ path: new URL('../.env', import.meta.url).pathname });
 
 const app = express();
 const PORT = process.env.PORT || 3000;
