@@ -6,7 +6,7 @@
 
 set -e
 
-APP_DIR="/opt/iotsimmanager"
+APP_DIR="/opt/IoTSIMManager"
 
 echo "[1/4] Pulling latest code..."
 cd $APP_DIR
