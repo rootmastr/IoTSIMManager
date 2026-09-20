@@ -1,0 +1,32 @@
+services:
+  backend:
+    build: .
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://iotsim:${DB_PASS}@host.docker.internal:5432/iotsimdb
+      JWT_SECRET: ${JWT_SECRET:-change_this_to_random_secret}
+      JWT_EXPIRES_IN: 7d
+      PORT: 3232
+      NODE_ENV: production
+      FRONTEND_URL: http://111.68.31.232:8282
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - app-net
+
+  nginx:
+    image: nginx:alpine
+    restart: unless-stopped
+    ports:
+      - "8282:80"
+    depends_on:
+      - backend
+    volumes:
+      - ./dist:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - app-net
+
+networks:
+  app-net:
+    driver: bridge
