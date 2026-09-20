@@ -39,7 +39,7 @@ JWT_SECRET=$(openssl rand -base64 32 | tr -d '/+=')
 echo "  Creating database and user..."
 
 # Create user and database in vigil-postgres
-docker exec -i vigil-postgres psql -U postgres <<SQL
+docker exec -i vigil-postgres psql -U vigil_admin -d vigil_prod <<SQL
 -- Create user if not exists
 DO \$\$
 BEGIN
@@ -94,7 +94,7 @@ sleep 8
 
 # 6. Init schema
 echo "[6/6] Initializing database schema..."
-docker exec -i vigil-postgres psql -U iotsim -d iotsimdb <<'SQL'
+docker exec -i vigil-postgres psql -U vigil_admin -d iotsimdb <<'SQL'
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
 CREATE TABLE IF NOT EXISTS users (
