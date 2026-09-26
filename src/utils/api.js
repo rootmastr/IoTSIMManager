@@ -28,10 +28,16 @@ async function request(endpoint, options = {}) {
     throw new Error('Sesi telah berakhir, silakan login kembali');
   }
 
-  const data = await res.json();
+  let data;
+  const contentType = res.headers.get('content-type');
+  if (contentType && contentType.includes('application/json')) {
+    data = await res.json();
+  } else {
+    data = null;
+  }
 
   if (!res.ok) {
-    throw new Error(data.error || 'Terjadi kesalahan');
+    throw new Error((data && data.error) || `Terjadi kesalahan (${res.status})`);
   }
 
   return data;
