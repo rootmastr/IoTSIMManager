@@ -119,8 +119,12 @@ export default function PaketData() {
     }
   }
 
-  function handleExportCSV() {
-    window.open('/api/devices/export/csv', '_blank');
+  async function handleExportCSV() {
+    try {
+      await api.download('/devices/export/csv', 'devices_export.csv');
+    } catch (err) {
+      alert('Gagal export: ' + err.message);
+    }
   }
 
   const sorted = [...devices].sort((a, b) => {

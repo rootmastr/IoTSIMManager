@@ -51,12 +51,20 @@ export default function Settings() {
     }
   }
 
-  function handleExportCSV() {
-    window.open('/api/devices/export/csv', '_blank');
+  async function handleExportCSV() {
+    try {
+      await api.download('/devices/export/csv', 'devices_export.csv');
+    } catch (err) {
+      alert('Gagal export: ' + err.message);
+    }
   }
 
-  function handleExportJSON() {
-    window.open('/api/devices/export/json', '_blank');
+  async function handleExportJSON() {
+    try {
+      await api.download('/devices/export/json', 'devices_export.json');
+    } catch (err) {
+      alert('Gagal export: ' + err.message);
+    }
   }
 
   return (

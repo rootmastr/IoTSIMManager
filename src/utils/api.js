@@ -43,10 +43,40 @@ async function request(endpoint, options = {}) {
   return data;
 }
 
+async function download(endpoint, filename) {
+  const token = getToken();
+  const res = await fetch(`${API_BASE}${endpoint}`, {
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+  });
+
+  if (res.status === 401) {
+    localStorage.removeItem('auth_token');
+    localStorage.removeItem('auth_user');
+    window.location.href = '/login';
+    throw new Error('Sesi telah berakhir, silakan login kembali');
+  }
+
+  if (!res.ok) {
+    const data = await res.json().catch(() => null);
+    throw new Error((data && data.error) || `Gagal download (${res.status})`);
+  }
+
+  const blob = await res.blob();
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename || 'export';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
 export const api = {
   get: (endpoint) => request(endpoint),
   post: (endpoint, body) => request(endpoint, { method: 'POST', body: JSON.stringify(body) }),
   put: (endpoint, body) => request(endpoint, { method: 'PUT', body: JSON.stringify(body) }),
   delete: (endpoint) => request(endpoint, { method: 'DELETE' }),
   upload: (endpoint, formData) => request(endpoint, { method: 'POST', body: formData }),
+  download,
 };
